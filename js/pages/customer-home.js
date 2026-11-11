@@ -1,0 +1,11 @@
+import { Layout } from '../core/layout.js';
+import { Api } from '../core/api.js';
+import { $, esc, money, cover } from '../core/dom.js';
+import { icon } from '../core/icons.js';
+await Layout.mount({ roles: ['CUSTOMER'], active: 'home' });
+const list = await Api.call('outlets', {}, { auth: false });
+$('#app').innerHTML = `<section class="welcome-banner"><div class="welcome-copy"><span class="eyebrow">JIND • FRESH & LOCAL</span><h1>Apne shehar ka<br><em>apna swaad.</em></h1><p>Jind ke pasandeeda restaurants se mangayein — ghar baithe, bina jhanjhat.</p><a class="banner-link" href="#restaurants">Restaurants dekhein <span aria-hidden="true">→</span></a></div><img src="../chai-banner.svg" alt="Illustration of a steaming cup of chai" class="banner-art"></section><div class="section-heading" id="restaurants"><div><span class="eyebrow">Aaj kya khayenge?</span><h2>Jind ke restaurants</h2></div><span class="city-tag">📍 Jind</span></div><div class="search-box"><span aria-hidden="true">⌕</span><input id="q" type="search" placeholder="Restaurant ya cuisine dhoondhein" aria-label="Search restaurants"></div><div class="local-note"><span>✦</span> Local restaurants ko support karein — seedha order, seedha swaad.</div><div id="l" class="restaurant-list"></div>`;
+const card = r => `<a class="card rest ${r.isOpen ? '' : 'closed'}" href="restaurant.html?id=${encodeURIComponent(r.id)}">${cover(r.photo, r.name)}<div class="grow"><h3>${esc(r.name)}</h3><div class="meta">${esc(r.cuisine || 'Food')}</div><div class="meta">${icon('pin')} ${esc(r.address)}</div>
+  <div class="row wrapx" style="margin-top:8px;gap:6px"><span class="pill ${r.isOpen ? 'ok' : 'bad'}">${r.isOpen ? 'Open' : 'Closed'}</span><span class="pill">${icon('clock')} ~${r.prepMins} min</span>${r.minOrder ? `<span class="pill">Min ${money(r.minOrder)}</span>` : ''}${r.offer ? `<span class="pill ac">${icon('tag')} ${esc(r.offer.title)}</span>` : ''}</div></div></a>`;
+const draw = () => { const q = $('#q').value.toLowerCase(), x = list.filter(r => (r.name + ' ' + r.cuisine + ' ' + r.address).toLowerCase().includes(q)); $('#l').innerHTML = x.length ? x.sort((a, b) => b.isOpen - a.isOpen).map(card).join('') : '<div class="empty">Koi restaurant nahi mila.</div>'; };
+$('#q').oninput = draw; draw();

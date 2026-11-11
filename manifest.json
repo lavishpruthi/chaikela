@@ -1,0 +1,19 @@
+{
+    "name": "Chaikela",
+    "short_name": "Chaikela",
+    "description": "Jind ka apna food delivery",
+    "start_url": "./index.html",
+    "scope": "./",
+    "display": "standalone",
+    "background_color": "#F8F5EC",
+    "theme_color": "#244C3A",
+    "orientation": "portrait-primary",
+    "categories": ["food", "shopping"],
+    "icons": [
+        { "src": "icon.svg", "sizes": "any 192x192 512x512", "type": "image/svg+xml", "purpose": "any maskable" }
+    ],
+    "shortcuts": [
+        { "name": "My orders", "url": "customer/orders.html", "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }] },
+        { "name": "Merchant orders", "url": "merchant/index.html", "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }] }
+    ]
+}

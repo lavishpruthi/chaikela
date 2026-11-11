@@ -15,9 +15,11 @@ function draw() {
 }
 const edit = async m => { const saved = await Modal.form({ title: m ? 'Edit dish' : 'Add dish', fields, values: m || {}, onSubmit: d => Api.call('mMenuSave', { ...(m ? { id: m.id } : {}), ...d }) }); if (saved) { Toast.show('Saved'); load(); } };
 $('#app').addEventListener('click', async e => {
-  const b = e.target.closest('button'); if (!b) return; const m = items[b.dataset.e ?? b.dataset.t ?? b.dataset.x];
-  if (b.hasAttribute('data-add')) edit(null); else if (b.dataset.e) edit(m);
-  else if (b.dataset.t) { try { await Api.call('mMenuSave', { ...m, available: !m.available }); load(); } catch (x) { Toast.show(x.message); } }
-  else if (b.dataset.x && await Modal.confirm(`Delete "${m.name}"?`)) { try { await Api.call('mMenuDelete', { id: m.id }); Toast.show('Deleted'); load(); } catch (x) { Toast.show(x.message); } }
+  const b = e.target.closest('button'); if (!b) return;
+  const action = ['data-e', 'data-t', 'data-x'].find(a => b.hasAttribute(a));
+  const m = action ? items[Number(b.getAttribute(action))] : null;
+  if (b.hasAttribute('data-add')) edit(null); else if (action === 'data-e') edit(m);
+  else if (action === 'data-t') { try { await Api.call('mMenuSave', { ...m, available: !m.available }); await load(); } catch (x) { Toast.show(x.message); } }
+  else if (action === 'data-x' && await Modal.confirm(`Delete "${m.name}"?`)) { try { await Api.call('mMenuDelete', { id: m.id }); Toast.show('Deleted'); await load(); } catch (x) { Toast.show(x.message); } }
 });
 await load();

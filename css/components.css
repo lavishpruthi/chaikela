@@ -29,3 +29,14 @@ input:focus,select:focus,textarea:focus{border-color:var(--leaf);box-shadow:0 0 
 .card{border-color:rgba(220,225,213,.9);border-radius:20px;box-shadow:0 3px 14px rgba(36,76,58,.045),0 12px 28px rgba(36,76,58,.045)}
 .chip{border-color:#DDE2D7;color:var(--chai);background:#fffefa}.chip.on{border-color:var(--chai);background:var(--chai);box-shadow:0 5px 12px rgba(36,76,58,.16)}
 .tbl{box-shadow:0 5px 20px rgba(36,76,58,.05)}th{background:#F4F5ED}
+.photo{align-items:stretch;flex-wrap:wrap;gap:12px}.photo-preview{width:88px!important;height:88px!important;border-radius:18px!important;box-shadow:0 5px 14px rgba(36,76,58,.12)}
+.photo-picker{position:relative;display:flex;align-items:center;gap:12px;min-height:88px;flex:1;min-width:190px;margin:0;padding:12px 15px;border:1.5px dashed #B8C9B7;border-radius:18px;background:linear-gradient(135deg,#F4F7EF,#FFFEFA);color:var(--chai);cursor:pointer;transition:border-color var(--t),background var(--t),transform var(--t)}
+.photo-picker:hover{border-color:var(--leaf);background:#EEF5EA}.photo-picker:active{transform:scale(.99)}.photo-picker:focus-within{outline:3px solid var(--saffron);outline-offset:2px}
+.photo-pick-icon{width:42px;height:42px;flex:none;display:grid;place-items:center;border-radius:14px;background:var(--chai);color:#fff;font-size:27px;font-weight:400;line-height:1}
+.photo-pick-copy{display:grid;gap:2px}.photo-pick-copy b{font-size:13px}.photo-pick-copy small{font-size:11px;color:var(--mut);font-weight:400}
+.photo-picker input[type=file]{position:absolute;inset:0;width:100%;height:100%;min-height:0;padding:0;border:0;border-radius:inherit;opacity:0;cursor:pointer}
+dialog.modal{width:min(520px,calc(100vw - 20px));max-height:calc(100dvh - 24px);overflow:hidden;border-radius:24px}
+.modal form{min-height:0}.modal header,.modal footer{flex:none;background:var(--card)}.modal header{padding-top:12px;padding-bottom:12px}.modal footer{position:sticky;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));box-shadow:0 -8px 18px rgba(36,76,58,.05)}
+.modal .body{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:0 18px 18px}
+.modal input:not([type=checkbox]):not([type=file]),.modal select,.modal textarea{font-size:16px}
+@media(max-width:600px){dialog.modal{width:calc(100vw - 16px);max-height:calc(100dvh - env(safe-area-inset-top) - 12px);border-radius:22px}.modal .body{padding-inline:15px}.modal footer{padding-inline:12px}.photo-picker{min-width:100%}}

@@ -4,7 +4,10 @@ import { Session } from '../core/session.js';
 import { Toast } from '../core/toast.js';
 import { $ } from '../core/dom.js';
 await Layout.mount();
-if (Session.token && Session.user) location.replace(Session.home(Session.user.role));
+if (Session.token || Session.user) {
+  if (Session.isLocallyValid) location.replace(Session.home(Session.user.role));
+  else Session.clear();
+}
 let role = new URLSearchParams(location.search).get('as') === 'admin' ? 'ADMIN' : 'CUSTOMER';
 function draw() {
   const adm = role === 'ADMIN';

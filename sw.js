@@ -1,4 +1,4 @@
-const V = "chaikela-v6";
+const V = "chaikela-v8";
 const SHELL = [
   "./",
   "./index.html",
